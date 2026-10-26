@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   String? _emailError;
   String? _passwordError;
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -92,8 +93,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   AppTextField(
                     controller: _passwordController,
                     label: 'Password',
-                    obscureText: true,
+                    obscureText: _obscurePassword,
                     errorText: _passwordError,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
                   ),
                   const SizedBox(height: AppSpacing.xl),
                   BlocBuilder<AuthBloc, AuthState>(

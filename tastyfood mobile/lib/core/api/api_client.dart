@@ -9,6 +9,9 @@ class ApiClient {
     required this.dio,
     required this.storage,
   }) {
+    dio.options.connectTimeout = const Duration(seconds: 15);
+    dio.options.receiveTimeout = const Duration(seconds: 15);
+    dio.options.sendTimeout = const Duration(seconds: 15);
     dio.options.headers = {
       'Accept': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',

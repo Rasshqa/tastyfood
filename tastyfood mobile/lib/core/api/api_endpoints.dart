@@ -1,5 +1,12 @@
 class ApiEndpoints {
-  static const String baseUrl = 'http://10.0.2.2:8000'; // Android emulator localhost
+  static const String defaultUrl = 'http://10.0.2.2:8000'; // Android emulator localhost
+  static String get baseUrl {
+    const fromEnv = String.fromEnvironment('API_BASE_URL');
+    return fromEnv.isNotEmpty ? fromEnv : defaultUrl;
+  }
+
+  // System & Health
+  static const String health = '/api/health';
 
   // Auth
   static const String login = '/admin/login';
