@@ -1,0 +1,974 @@
+{
+  "communities": {
+    "0": [
+      "app_events_messageread",
+      "app_events_messageread_messageread",
+      "app_events_messageread_messageread_broadcaston",
+      "app_events_messageread_messageread_broadcastwith",
+      "app_events_messageread_messageread_construct",
+      "app_events_messagesent",
+      "app_events_messagesent_messagesent",
+      "app_events_messagesent_messagesent_broadcaston",
+      "app_events_messagesent_messagesent_broadcastwith",
+      "app_events_messagesent_messagesent_construct",
+      "app_events_neworderreceived",
+      "app_events_neworderreceived_neworderreceived",
+      "app_events_neworderreceived_neworderreceived_broadcaston",
+      "app_events_neworderreceived_neworderreceived_broadcastwith",
+      "app_events_usertyping",
+      "app_events_usertyping_usertyping",
+      "app_events_usertyping_usertyping_broadcaston",
+      "app_events_usertyping_usertyping_broadcastwith",
+      "app_events_usertyping_usertyping_construct",
+      "app_http_controllers_admin_chatcontroller",
+      "app_http_controllers_admin_chatcontroller_chatcontroller",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_close",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_getmessages",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_gettotalunread",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_index",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_markasread",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_search",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_sendmessage",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_show",
+      "app_http_controllers_admin_chatcontroller_chatcontroller_typing",
+      "app_http_controllers_chatcontroller",
+      "app_http_controllers_chatcontroller_chatcontroller",
+      "app_http_controllers_chatcontroller_chatcontroller_getmessages",
+      "app_http_controllers_chatcontroller_chatcontroller_getorcreateconversation",
+      "app_http_controllers_chatcontroller_chatcontroller_markasread",
+      "app_http_controllers_chatcontroller_chatcontroller_sendmessage",
+      "app_http_controllers_chatcontroller_chatcontroller_typing",
+      "app_listeners_sendordersystemmessage",
+      "app_listeners_sendordersystemmessage_sendordersystemmessage",
+      "app_listeners_sendordersystemmessage_sendordersystemmessage_getsystemmessage",
+      "app_listeners_sendordersystemmessage_sendordersystemmessage_handle",
+      "app_models_conversation",
+      "app_models_conversation_conversation",
+      "app_models_conversation_conversation_latestmessage",
+      "app_models_conversation_conversation_messages",
+      "app_models_conversation_conversation_order",
+      "app_models_conversation_conversation_scopeopen",
+      "app_models_conversation_conversation_scoperecent",
+      "app_models_conversation_conversation_unreadmessagescount",
+      "app_models_conversation_conversation_user",
+      "app_models_message",
+      "app_models_message_message",
+      "app_models_message_message_booted",
+      "app_models_message_message_conversation",
+      "app_models_message_message_markasread",
+      "app_models_message_message_scopebyadmin",
+      "app_models_message_message_scopebyuser",
+      "app_models_message_message_scopeunread",
+      "app_observers_orderobserver",
+      "app_observers_orderobserver_orderobserver",
+      "app_observers_orderobserver_orderobserver_created",
+      "app_observers_orderobserver_orderobserver_updated",
+      "illuminate_broadcasting_channel",
+      "illuminate_broadcasting_interactswithsockets",
+      "illuminate_broadcasting_privatechannel",
+      "illuminate_contracts_broadcasting_shouldbroadcastnow",
+      "illuminate_database_eloquent_relations_belongsto",
+      "illuminate_database_eloquent_relations_hasmany",
+      "illuminate_foundation_events_dispatchable",
+      "illuminate_queue_serializesmodels",
+      "illuminate_support_facades_broadcast",
+      "routes_channels"
+    ],
+    "1": [
+      "app_http_controllers_aboutcontroller",
+      "app_http_controllers_aboutcontroller_aboutcontroller",
+      "app_http_controllers_aboutcontroller_aboutcontroller_index",
+      "app_http_controllers_admin_authcontroller",
+      "app_http_controllers_admin_authcontroller_authcontroller",
+      "app_http_controllers_admin_authcontroller_authcontroller_login",
+      "app_http_controllers_admin_authcontroller_authcontroller_logout",
+      "app_http_controllers_admin_authcontroller_authcontroller_showlogin",
+      "app_http_controllers_admin_dashboardcontroller",
+      "app_http_controllers_admin_dashboardcontroller_dashboardcontroller",
+      "app_http_controllers_admin_dashboardcontroller_dashboardcontroller_index",
+      "app_http_controllers_admin_messagecontroller",
+      "app_http_controllers_admin_messagecontroller_messagecontroller",
+      "app_http_controllers_admin_messagecontroller_messagecontroller_destroy",
+      "app_http_controllers_admin_messagecontroller_messagecontroller_index",
+      "app_http_controllers_admin_messagecontroller_messagecontroller_show",
+      "app_http_controllers_admin_ordermanagementcontroller",
+      "app_http_controllers_admin_ordermanagementcontroller_ordermanagementcontroller",
+      "app_http_controllers_admin_ordermanagementcontroller_ordermanagementcontroller_approvepayment",
+      "app_http_controllers_admin_ordermanagementcontroller_ordermanagementcontroller_index",
+      "app_http_controllers_admin_ordermanagementcontroller_ordermanagementcontroller_rejectpayment",
+      "app_http_controllers_admin_ordermanagementcontroller_ordermanagementcontroller_show",
+      "app_http_controllers_admin_ordermanagementcontroller_ordermanagementcontroller_updateorderstatus",
+      "app_http_controllers_admin_settingcontroller",
+      "app_http_controllers_admin_settingcontroller_settingcontroller",
+      "app_http_controllers_admin_settingcontroller_settingcontroller_index",
+      "app_http_controllers_admin_settingcontroller_settingcontroller_update",
+      "app_http_controllers_auth_logincontroller",
+      "app_http_controllers_auth_logincontroller_logincontroller",
+      "app_http_controllers_auth_logincontroller_logincontroller_login",
+      "app_http_controllers_auth_logincontroller_logincontroller_logout",
+      "app_http_controllers_auth_logincontroller_logincontroller_showloginform",
+      "app_http_controllers_auth_registercontroller",
+      "app_http_controllers_auth_registercontroller_registercontroller",
+      "app_http_controllers_auth_registercontroller_registercontroller_register",
+      "app_http_controllers_auth_registercontroller_registercontroller_showregistrationform",
+      "app_http_controllers_cartcontroller",
+      "app_http_controllers_cartcontroller_cartcontroller",
+      "app_http_controllers_cartcontroller_cartcontroller_add",
+      "app_http_controllers_cartcontroller_cartcontroller_addajax",
+      "app_http_controllers_cartcontroller_cartcontroller_clear",
+      "app_http_controllers_cartcontroller_cartcontroller_remove",
+      "app_http_controllers_cartcontroller_cartcontroller_update",
+      "app_http_controllers_cartcontroller_cartcontroller_updateajax",
+      "app_http_controllers_contactcontroller",
+      "app_http_controllers_contactcontroller_contactcontroller",
+      "app_http_controllers_contactcontroller_contactcontroller_index",
+      "app_http_controllers_contactcontroller_contactcontroller_store",
+      "app_http_controllers_controller",
+      "app_http_controllers_controller_controller",
+      "app_http_controllers_profilecontroller",
+      "app_http_controllers_profilecontroller_profilecontroller",
+      "app_http_controllers_profilecontroller_profilecontroller_edit",
+      "app_http_controllers_profilecontroller_profilecontroller_show",
+      "app_http_controllers_profilecontroller_profilecontroller_update",
+      "app_http_middleware_adminmiddleware",
+      "app_http_middleware_adminmiddleware_adminmiddleware",
+      "app_http_middleware_adminmiddleware_adminmiddleware_handle",
+      "app_models_contactmessage",
+      "app_models_contactmessage_contactmessage",
+      "bootstrap_app",
+      "closure",
+      "illuminate_foundation_application",
+      "illuminate_foundation_configuration_exceptions",
+      "illuminate_foundation_configuration_middleware",
+      "illuminate_http_request",
+      "illuminate_support_facades_auth",
+      "illuminate_support_facades_hash",
+      "illuminate_support_facades_route",
+      "illuminate_validation_rules_password",
+      "public_index",
+      "routes_web"
+    ],
+    "2": [
+      "app_http_controllers_admin_chatcontroller_chatcontroller_toggleavailability",
+      "app_http_controllers_admin_newscontroller",
+      "app_http_controllers_admin_newscontroller_newscontroller",
+      "app_http_controllers_admin_newscontroller_newscontroller_create",
+      "app_http_controllers_admin_newscontroller_newscontroller_destroy",
+      "app_http_controllers_admin_newscontroller_newscontroller_edit",
+      "app_http_controllers_admin_newscontroller_newscontroller_index",
+      "app_http_controllers_admin_newscontroller_newscontroller_store",
+      "app_http_controllers_admin_newscontroller_newscontroller_update",
+      "app_http_controllers_newscontroller",
+      "app_http_controllers_newscontroller_newscontroller",
+      "app_http_controllers_newscontroller_newscontroller_index",
+      "app_http_controllers_newscontroller_newscontroller_show",
+      "app_models_admin",
+      "app_models_admin_admin",
+      "app_models_gallery",
+      "app_models_menu",
+      "app_models_news",
+      "app_models_news_news",
+      "app_models_news_news_scopepublished",
+      "app_models_order",
+      "app_models_orderitem",
+      "app_models_orderitem_orderitem",
+      "app_models_orderitem_orderitem_getformattedpriceattribute",
+      "app_models_orderitem_orderitem_getformattedsubtotalattribute",
+      "app_models_orderitem_orderitem_menu",
+      "app_models_orderitem_orderitem_order",
+      "app_models_payment",
+      "app_models_setting",
+      "app_models_setting_setting",
+      "app_models_setting_setting_get",
+      "app_models_setting_setting_set",
+      "app_models_user",
+      "app_models_user_user",
+      "app_models_user_user_casts",
+      "app_models_user_user_conversations",
+      "app_models_user_user_isadmin",
+      "app_models_user_user_iscustomer",
+      "app_models_user_user_orders",
+      "app_models_user_user_payments",
+      "config_auth",
+      "config_cache",
+      "config_database",
+      "config_session",
+      "database_factories_userfactory",
+      "database_factories_userfactory_userfactory",
+      "database_factories_userfactory_userfactory_definition",
+      "database_factories_userfactory_userfactory_unverified",
+      "database_seeders_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder_run",
+      "illuminate_database_eloquent_attributes_fillable",
+      "illuminate_database_eloquent_attributes_hidden",
+      "illuminate_database_eloquent_factories_factory",
+      "illuminate_database_eloquent_factories_hasfactory",
+      "illuminate_database_eloquent_model",
+      "illuminate_database_seeder",
+      "illuminate_foundation_auth_user",
+      "illuminate_notifications_notifiable",
+      "illuminate_support_str",
+      "pdo_mysql",
+      "static"
+    ],
+    "3": [
+      "database_migrations_0001_01_01_000000_create_users_table",
+      "database_migrations_0001_01_01_000000_create_users_table_down",
+      "database_migrations_0001_01_01_000000_create_users_table_up",
+      "database_migrations_0001_01_01_000001_create_cache_table",
+      "database_migrations_0001_01_01_000001_create_cache_table_down",
+      "database_migrations_0001_01_01_000001_create_cache_table_up",
+      "database_migrations_0001_01_01_000002_create_jobs_table",
+      "database_migrations_0001_01_01_000002_create_jobs_table_down",
+      "database_migrations_0001_01_01_000002_create_jobs_table_up",
+      "database_migrations_2025_01_01_000001_create_tastyfood_tables",
+      "database_migrations_2025_01_01_000001_create_tastyfood_tables_down",
+      "database_migrations_2025_01_01_000001_create_tastyfood_tables_up",
+      "database_migrations_2025_01_02_000001_create_menus_tables",
+      "database_migrations_2025_01_02_000001_create_menus_tables_down",
+      "database_migrations_2025_01_02_000001_create_menus_tables_up",
+      "database_migrations_2026_10_06_082723_add_popular_count_to_menus_table",
+      "database_migrations_2026_10_06_082723_add_popular_count_to_menus_table_down",
+      "database_migrations_2026_10_06_082723_add_popular_count_to_menus_table_up",
+      "database_migrations_2026_10_06_082756_add_location_to_orders_table",
+      "database_migrations_2026_10_06_082756_add_location_to_orders_table_down",
+      "database_migrations_2026_10_06_082756_add_location_to_orders_table_up",
+      "database_migrations_2026_10_07_100001_add_phone_and_role_to_users_table",
+      "database_migrations_2026_10_07_100001_add_phone_and_role_to_users_table_down",
+      "database_migrations_2026_10_07_100001_add_phone_and_role_to_users_table_up",
+      "database_migrations_2026_10_07_100002_add_user_id_to_orders_table",
+      "database_migrations_2026_10_07_100002_add_user_id_to_orders_table_down",
+      "database_migrations_2026_10_07_100002_add_user_id_to_orders_table_up",
+      "database_migrations_2026_10_07_100003_create_payment_methods_table",
+      "database_migrations_2026_10_07_100003_create_payment_methods_table_down",
+      "database_migrations_2026_10_07_100003_create_payment_methods_table_up",
+      "database_migrations_2026_10_07_100004_create_payments_table",
+      "database_migrations_2026_10_07_100004_create_payments_table_down",
+      "database_migrations_2026_10_07_100004_create_payments_table_up",
+      "database_migrations_2026_10_08_154256_create_conversations_table",
+      "database_migrations_2026_10_08_154256_create_conversations_table_down",
+      "database_migrations_2026_10_08_154256_create_conversations_table_up",
+      "database_migrations_2026_10_08_154257_create_messages_table",
+      "database_migrations_2026_10_08_154257_create_messages_table_down",
+      "database_migrations_2026_10_08_154257_create_messages_table_up",
+      "illuminate_database_migrations_migration",
+      "illuminate_database_schema_blueprint",
+      "illuminate_support_facades_schema"
+    ],
+    "4": [
+      "app_events_neworderreceived_neworderreceived_construct",
+      "app_http_controllers_admin_ordercontroller",
+      "app_http_controllers_admin_ordercontroller_ordercontroller",
+      "app_http_controllers_admin_ordercontroller_ordercontroller_index",
+      "app_http_controllers_admin_ordercontroller_ordercontroller_show",
+      "app_http_controllers_admin_ordercontroller_ordercontroller_updatestatus",
+      "app_http_controllers_ordercontroller",
+      "app_http_controllers_ordercontroller_ordercontroller",
+      "app_http_controllers_ordercontroller_ordercontroller_calculatedeliveryfee",
+      "app_http_controllers_ordercontroller_ordercontroller_history",
+      "app_http_controllers_ordercontroller_ordercontroller_show",
+      "app_http_controllers_ordercontroller_ordercontroller_store",
+      "app_http_controllers_ordercontroller_ordercontroller_success",
+      "app_models_order_order",
+      "app_models_order_order_generateordernumber",
+      "app_models_order_order_getformatteddeliveryfeeattribute",
+      "app_models_order_order_getformattedsubtotalattribute",
+      "app_models_order_order_getformattedtotalattribute",
+      "app_models_order_order_getstatuscolorattribute",
+      "app_models_order_order_getstatuslabelattribute",
+      "app_models_order_order_items",
+      "app_models_order_order_payment",
+      "app_models_order_order_user",
+      "app_providers_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider_boot",
+      "app_providers_appserviceprovider_appserviceprovider_register",
+      "app_services_deliveryservice",
+      "app_services_deliveryservice_deliveryservice",
+      "app_services_deliveryservice_deliveryservice_calculatedeliveryfee",
+      "app_services_deliveryservice_deliveryservice_calculatedistance",
+      "app_services_deliveryservice_deliveryservice_geocodeaddress",
+      "app_services_deliveryservice_deliveryservice_iswithindeliveryradius",
+      "app_services_deliveryservice_deliveryservice_reversegeocode",
+      "bootstrap_providers",
+      "illuminate_support_facades_db",
+      "illuminate_support_facades_http",
+      "illuminate_support_serviceprovider"
+    ],
+    "5": [
+      "package",
+      "package_dependencies",
+      "package_dependencies_laravel_echo",
+      "package_dependencies_leaflet",
+      "package_dependencies_pusher_js",
+      "package_devdependencies",
+      "package_devdependencies_concurrently",
+      "package_devdependencies_laravel_vite_plugin",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tailwindcss_vite",
+      "package_devdependencies_vite",
+      "package_optionaldependencies",
+      "package_optionaldependencies_laravel_multiplex",
+      "package_private",
+      "package_schema",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_type",
+      "ref_concurrently",
+      "ref_laravel_echo",
+      "ref_laravel_multiplex",
+      "ref_laravel_vite_plugin",
+      "ref_leaflet",
+      "ref_pusher_js",
+      "ref_tailwindcss",
+      "ref_tailwindcss_vite",
+      "ref_vite",
+      "resources_js_app",
+      "resources_js_components_leaflet_map",
+      "resources_js_components_leaflet_map_adddeliverymarker",
+      "resources_js_components_leaflet_map_addrestaurantmarker",
+      "resources_js_components_leaflet_map_calculatedistance",
+      "resources_js_components_leaflet_map_drawroute",
+      "resources_js_components_leaflet_map_fitbounds",
+      "resources_js_components_leaflet_map_initrestaurantmap",
+      "resources_js_contact_map",
+      "vite_config"
+    ],
+    "6": [
+      "app_http_controllers_admin_gallerycontroller",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller_create",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller_destroy",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller_edit",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller_index",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller_store",
+      "app_http_controllers_admin_gallerycontroller_gallerycontroller_update",
+      "app_http_controllers_gallerycontroller",
+      "app_http_controllers_gallerycontroller_gallerycontroller",
+      "app_http_controllers_gallerycontroller_gallerycontroller_index",
+      "app_http_controllers_homecontroller",
+      "app_http_controllers_homecontroller_homecontroller",
+      "app_http_controllers_homecontroller_homecontroller_index",
+      "app_models_gallery_gallery",
+      "illuminate_foundation_testing_refreshdatabase",
+      "illuminate_foundation_testing_testcase",
+      "illuminate_http_uploadedfile",
+      "tests_feature_adminflowtest",
+      "tests_feature_adminflowtest_adminflowtest",
+      "tests_feature_adminflowtest_adminflowtest_setup",
+      "tests_feature_adminflowtest_adminflowtest_test_admin_login_works",
+      "tests_feature_adminflowtest_adminflowtest_test_berita_crud_flow",
+      "tests_feature_adminflowtest_adminflowtest_test_contact_form_creates_message_visible_in_admin",
+      "tests_feature_adminflowtest_adminflowtest_test_galeri_crud_flow",
+      "tests_feature_adminflowtest_adminflowtest_test_unauthenticated_admin_redirects_to_admin_login",
+      "tests_feature_exampletest",
+      "tests_feature_exampletest_exampletest",
+      "tests_feature_exampletest_exampletest_test_the_application_returns_a_successful_response",
+      "tests_testcase",
+      "tests_testcase_testcase"
+    ],
+    "7": [
+      "app_http_controllers_admin_paymentmethodcontroller",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller_create",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller_destroy",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller_edit",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller_index",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller_store",
+      "app_http_controllers_admin_paymentmethodcontroller_paymentmethodcontroller_update",
+      "app_http_controllers_paymentcontroller",
+      "app_http_controllers_paymentcontroller_paymentcontroller",
+      "app_http_controllers_paymentcontroller_paymentcontroller_show",
+      "app_http_controllers_paymentcontroller_paymentcontroller_status",
+      "app_http_controllers_paymentcontroller_paymentcontroller_store",
+      "app_http_controllers_paymentcontroller_paymentcontroller_uploadform",
+      "app_http_controllers_paymentcontroller_paymentcontroller_uploadproof",
+      "app_models_paymentmethod",
+      "app_models_paymentmethod_paymentmethod",
+      "app_models_paymentmethod_paymentmethod_gettypelabelattribute",
+      "app_models_paymentmethod_paymentmethod_payments",
+      "app_models_paymentmethod_paymentmethod_scopeactive",
+      "illuminate_database_eloquent_softdeletes",
+      "illuminate_support_facades_storage"
+    ],
+    "8": [
+      "app_http_controllers_admin_menucontroller",
+      "app_http_controllers_admin_menucontroller_menucontroller",
+      "app_http_controllers_admin_menucontroller_menucontroller_create",
+      "app_http_controllers_admin_menucontroller_menucontroller_destroy",
+      "app_http_controllers_admin_menucontroller_menucontroller_edit",
+      "app_http_controllers_admin_menucontroller_menucontroller_index",
+      "app_http_controllers_admin_menucontroller_menucontroller_store",
+      "app_http_controllers_admin_menucontroller_menucontroller_update",
+      "app_http_controllers_cartcontroller_cartcontroller_index",
+      "app_http_controllers_menucontroller",
+      "app_http_controllers_menucontroller_menucontroller",
+      "app_http_controllers_menucontroller_menucontroller_index",
+      "app_http_controllers_menucontroller_menucontroller_show",
+      "app_models_menu_menu",
+      "app_models_menu_menu_getcategorylabelattribute",
+      "app_models_menu_menu_getformattedpriceattribute",
+      "app_models_menu_menu_scopeavailable",
+      "app_models_menu_menu_scopecategory",
+      "app_models_menu_menu_scopepopular",
+      "app_models_menu_menu_scopesearch"
+    ],
+    "9": [
+      "app_http_controllers_admin_paymentcontroller",
+      "app_http_controllers_admin_paymentcontroller_paymentcontroller",
+      "app_http_controllers_admin_paymentcontroller_paymentcontroller_approve",
+      "app_http_controllers_admin_paymentcontroller_paymentcontroller_index",
+      "app_http_controllers_admin_paymentcontroller_paymentcontroller_reject",
+      "app_http_controllers_admin_paymentcontroller_paymentcontroller_show",
+      "app_models_payment_payment",
+      "app_models_payment_payment_getformattedamountattribute",
+      "app_models_payment_payment_getstatuscolorattribute",
+      "app_models_payment_payment_getstatuslabelattribute",
+      "app_models_payment_payment_order",
+      "app_models_payment_payment_paymentmethod",
+      "app_models_payment_payment_scopewaitingverification",
+      "app_models_payment_payment_user",
+      "app_models_payment_payment_verifier"
+    ],
+    "10": [
+      "composer",
+      "composer_description",
+      "composer_keywords",
+      "composer_license",
+      "composer_minimum_stability",
+      "composer_name",
+      "composer_prefer_stable",
+      "composer_schema",
+      "composer_type"
+    ],
+    "11": [
+      "composer_require_dev",
+      "composer_require_dev_fakerphp_faker",
+      "composer_require_dev_laravel_boost",
+      "composer_require_dev_laravel_pail",
+      "composer_require_dev_laravel_pao",
+      "composer_require_dev_laravel_pint",
+      "composer_require_dev_mockery_mockery",
+      "composer_require_dev_nunomaduro_collision",
+      "composer_require_dev_phpunit_phpunit"
+    ],
+    "12": [
+      "composer_scripts",
+      "composer_scripts_dev",
+      "composer_scripts_post_autoload_dump",
+      "composer_scripts_post_create_project_cmd",
+      "composer_scripts_post_root_package_install",
+      "composer_scripts_post_update_cmd",
+      "composer_scripts_pre_package_uninstall",
+      "composer_scripts_setup",
+      "composer_scripts_test"
+    ],
+    "13": [
+      "composer_allow_plugins_pestphp_pest_plugin",
+      "composer_allow_plugins_php_http_discovery",
+      "composer_config",
+      "composer_config_allow_plugins",
+      "composer_config_optimize_autoloader",
+      "composer_config_preferred_install",
+      "composer_config_sort_packages"
+    ],
+    "14": [
+      "opencode",
+      "opencode_laravel_boost_command",
+      "opencode_laravel_boost_enabled",
+      "opencode_laravel_boost_type",
+      "opencode_mcp",
+      "opencode_mcp_laravel_boost",
+      "opencode_schema"
+    ],
+    "15": [
+      "composer_autoload",
+      "composer_autoload_psr_4",
+      "composer_psr_4_app",
+      "composer_psr_4_database_factories",
+      "composer_psr_4_database_seeders"
+    ],
+    "16": [
+      "composer_require",
+      "composer_require_laravel_framework",
+      "composer_require_laravel_reverb",
+      "composer_require_laravel_tinker",
+      "composer_require_php"
+    ],
+    "17": [
+      "config_logging",
+      "monolog_handler_nullhandler",
+      "monolog_handler_streamhandler",
+      "monolog_handler_syslogudphandler",
+      "monolog_processor_psrlogmessageprocessor"
+    ],
+    "18": [
+      "components_chat_widget",
+      "components_footer",
+      "components_navbar",
+      "resources_views_layouts_app_blade"
+    ],
+    "19": [
+      "phpunit_framework_testcase",
+      "tests_unit_exampletest",
+      "tests_unit_exampletest_exampletest",
+      "tests_unit_exampletest_exampletest_test_that_true_is_true"
+    ],
+    "20": [
+      "application",
+      "argvinput",
+      "artisan"
+    ],
+    "21": [
+      "composer_autoload_dev",
+      "composer_autoload_dev_psr_4",
+      "composer_psr_4_tests"
+    ],
+    "22": [
+      "composer_extra",
+      "composer_extra_laravel",
+      "composer_laravel_dont_discover"
+    ],
+    "23": [
+      "factory_mcp",
+      "factory_mcp_json_mcp_command_php",
+      "factory_mcp_mcp_server_laravel_boost"
+    ],
+    "24": [
+      "illuminate_foundation_inspiring",
+      "illuminate_support_facades_artisan",
+      "routes_console"
+    ],
+    "25": [
+      "kiro_settings_mcp",
+      "kiro_settings_mcp_json_mcp_command_php",
+      "kiro_settings_mcp_mcp_server_laravel_boost"
+    ],
+    "26": [
+      "mcp",
+      "mcp_json_mcp_command_php",
+      "mcp_mcp_server_laravel_boost"
+    ],
+    "27": [
+      "config_app"
+    ],
+    "28": [
+      "config_broadcasting"
+    ],
+    "29": [
+      "config_filesystems"
+    ],
+    "30": [
+      "config_mail"
+    ],
+    "31": [
+      "config_queue"
+    ],
+    "32": [
+      "config_restaurant"
+    ],
+    "33": [
+      "config_reverb"
+    ],
+    "34": [
+      "config_services"
+    ],
+    "35": [
+      "resources_views_admin_auth_login_blade"
+    ],
+    "36": [
+      "resources_views_admin_chat_index_blade"
+    ],
+    "37": [
+      "resources_views_admin_dashboard_blade"
+    ],
+    "38": [
+      "resources_views_admin_gallery_create_blade"
+    ],
+    "39": [
+      "resources_views_admin_gallery_edit_blade"
+    ],
+    "40": [
+      "resources_views_admin_gallery_index_blade"
+    ],
+    "41": [
+      "resources_views_admin_menus_create_blade"
+    ],
+    "42": [
+      "resources_views_admin_menus_edit_blade"
+    ],
+    "43": [
+      "resources_views_admin_menus_index_blade"
+    ],
+    "44": [
+      "resources_views_admin_messages_index_blade"
+    ],
+    "45": [
+      "resources_views_admin_messages_show_blade"
+    ],
+    "46": [
+      "resources_views_admin_news_create_blade"
+    ],
+    "47": [
+      "resources_views_admin_news_edit_blade"
+    ],
+    "48": [
+      "resources_views_admin_news_index_blade"
+    ],
+    "49": [
+      "resources_views_admin_order_management_index_blade"
+    ],
+    "50": [
+      "resources_views_admin_order_management_show_blade"
+    ],
+    "51": [
+      "resources_views_admin_orders_index_blade"
+    ],
+    "52": [
+      "resources_views_admin_orders_show_blade"
+    ],
+    "53": [
+      "resources_views_admin_payment_methods_create_blade"
+    ],
+    "54": [
+      "resources_views_admin_payment_methods_edit_blade"
+    ],
+    "55": [
+      "resources_views_admin_payment_methods_index_blade"
+    ],
+    "56": [
+      "resources_views_admin_payments_index_blade"
+    ],
+    "57": [
+      "resources_views_admin_payments_show_blade"
+    ],
+    "58": [
+      "resources_views_admin_settings_index_blade"
+    ],
+    "59": [
+      "resources_views_auth_login_blade"
+    ],
+    "60": [
+      "resources_views_auth_register_blade"
+    ],
+    "61": [
+      "resources_views_cart_index_blade"
+    ],
+    "62": [
+      "resources_views_components_chat_widget_blade"
+    ],
+    "63": [
+      "resources_views_components_footer_blade"
+    ],
+    "64": [
+      "resources_views_components_hero_blade"
+    ],
+    "65": [
+      "resources_views_components_navbar_blade"
+    ],
+    "66": [
+      "resources_views_layouts_admin_blade"
+    ],
+    "67": [
+      "resources_views_menu_index_blade"
+    ],
+    "68": [
+      "resources_views_menu_show_blade"
+    ],
+    "69": [
+      "resources_views_orders_history_blade"
+    ],
+    "70": [
+      "resources_views_orders_show_blade"
+    ],
+    "71": [
+      "resources_views_orders_success_blade"
+    ],
+    "72": [
+      "resources_views_pages_about_blade"
+    ],
+    "73": [
+      "resources_views_pages_contact_blade"
+    ],
+    "74": [
+      "resources_views_pages_gallery_blade"
+    ],
+    "75": [
+      "resources_views_pages_home_blade"
+    ],
+    "76": [
+      "resources_views_pages_menu_index_blade"
+    ],
+    "77": [
+      "resources_views_pages_menu_show_blade"
+    ],
+    "78": [
+      "resources_views_pages_news_index_blade"
+    ],
+    "79": [
+      "resources_views_pages_news_show_blade"
+    ],
+    "80": [
+      "resources_views_pages_orders_checkout_blade"
+    ],
+    "81": [
+      "resources_views_payments_show_blade"
+    ],
+    "82": [
+      "resources_views_payments_status_blade"
+    ],
+    "83": [
+      "resources_views_payments_upload_blade"
+    ],
+    "84": [
+      "resources_views_profile_edit_blade"
+    ],
+    "85": [
+      "resources_views_profile_show_blade"
+    ],
+    "86": [
+      "resources_views_vendor_pagination_padang_blade"
+    ],
+    "87": [
+      "resources_views_welcome_blade"
+    ]
+  },
+  "cohesion": {
+    "0": 0.06025039123630673,
+    "1": 0.05046948356807512,
+    "2": 0.05182443151771549,
+    "3": 0.07549361207897794,
+    "4": 0.06401137980085349,
+    "5": 0.059743954480796585,
+    "6": 0.08817204301075268,
+    "7": 0.12554112554112554,
+    "8": 0.13157894736842105,
+    "9": 0.1619047619047619,
+    "10": 0.2222222222222222,
+    "11": 0.2222222222222222,
+    "12": 0.2222222222222222,
+    "13": 0.2857142857142857,
+    "14": 0.2857142857142857,
+    "15": 0.4,
+    "16": 0.4,
+    "17": 0.4,
+    "18": 0.5,
+    "19": 0.6666666666666666,
+    "20": 0.6666666666666666,
+    "21": 0.6666666666666666,
+    "22": 0.6666666666666666,
+    "23": 0.6666666666666666,
+    "24": 0.6666666666666666,
+    "25": 0.6666666666666666,
+    "26": 0.6666666666666666,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_http_controllers_controller_controller",
+      "label": "Controller",
+      "degree": 40
+    },
+    {
+      "id": "app_models_conversation_conversation",
+      "label": "Conversation",
+      "degree": 30
+    },
+    {
+      "id": "app_models_order_order",
+      "label": "Order",
+      "degree": 29
+    },
+    {
+      "id": "app_models_message_message",
+      "label": "Message",
+      "degree": 28
+    },
+    {
+      "id": "app_models_menu_menu",
+      "label": "Menu",
+      "degree": 25
+    },
+    {
+      "id": "app_models_payment_payment",
+      "label": "Payment",
+      "degree": 20
+    },
+    {
+      "id": "app_models_news_news",
+      "label": "News",
+      "degree": 19
+    },
+    {
+      "id": "app_events_messagesent_messagesent",
+      "label": "MessageSent",
+      "degree": 18
+    },
+    {
+      "id": "app_models_gallery_gallery",
+      "label": "Gallery",
+      "degree": 17
+    },
+    {
+      "id": "app_models_setting_setting",
+      "label": "Setting",
+      "degree": 15
+    }
+  ],
+  "surprises": [
+    {
+      "source": "AdminFlowTest",
+      "target": "Admin",
+      "source_files": [
+        "tests/Feature/AdminFlowTest.php",
+        "app/Models/Admin.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "NewOrderReceived",
+      "target": "Order",
+      "source_files": [
+        "app/Events/NewOrderReceived.php",
+        "app/Models/Order.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "ChatController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/Admin/ChatController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "ChatController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/ChatController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "GalleryController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/Admin/GalleryController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Controller` connect `Illuminate\\Http\\Request` to `Conversation`, `Illuminate\\Database\\Eloquent\\Model`, `Order`, `Gallery`, `PaymentMethod`, `Menu`, `Payment`?",
+      "why": "High betweenness centrality (0.066) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Order` connect `Order` to `Conversation`, `Illuminate\\Http\\Request`, `Illuminate\\Database\\Eloquent\\Model`?",
+      "why": "High betweenness centrality (0.052) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Message` connect `Conversation` to `Illuminate\\Database\\Eloquent\\Model`, `Gallery`?",
+      "why": "High betweenness centrality (0.038) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `description`, `keywords`, `license` to the rest of the system?",
+      "why": "65 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Conversation` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.06025039123630673 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Illuminate\\Http\\Request` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.05046948356807512 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Illuminate\\Database\\Eloquent\\Model` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.05182443151771549 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

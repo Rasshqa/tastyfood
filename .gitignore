@@ -1,0 +1,60 @@
+# Monorepo root .gitignore for TastyFood (Web + Mobile)
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*~
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# General
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# Symlinks inside repo root
+tastyfood-web
+tastyfood-mobile
+
+# --- Web (Laravel / PHP / Node) ---
+"tastyfood web/.env"
+"tastyfood web/.env.*"
+!"tastyfood web/.env.example"
+"tastyfood web/vendor/"
+"tastyfood web/node_modules/"
+"tastyfood web/public/build/"
+"tastyfood web/public/hot"
+"tastyfood web/public/storage"
+"tastyfood web/storage/*.key"
+"tastyfood web/storage/pail"
+"tastyfood web/storage/framework/cache/*"
+"tastyfood web/storage/framework/sessions/*"
+"tastyfood web/storage/framework/views/*"
+"tastyfood web/.phpunit.result.cache"
+"tastyfood web/.phpunit.cache"
+"tastyfood web/auth.json"
+
+# --- Mobile (Flutter / Dart / Android / iOS) ---
+"tastyfood mobile/.dart_tool/"
+"tastyfood mobile/.flutter-plugins"
+"tastyfood mobile/.flutter-plugins-dependencies"
+"tastyfood mobile/.pub-cache/"
+"tastyfood mobile/.pub/"
+"tastyfood mobile/build/"
+"tastyfood mobile/coverage/"
+"tastyfood mobile/android/.gradle/"
+"tastyfood mobile/android/local.properties"
+"tastyfood mobile/android/app/debug"
+"tastyfood mobile/android/app/profile"
+"tastyfood mobile/android/app/release"
+"tastyfood mobile/ios/Flutter/.last_build_id"
+"tastyfood mobile/ios/Pods/"
+"tastyfood mobile/ios/.symlinks/"
+"tastyfood mobile/app.*.symbols"
+"tastyfood mobile/app.*.map.json"
