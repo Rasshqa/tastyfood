@@ -26,17 +26,23 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _login() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
     setState(() {
-      _emailError = _emailController.text.isEmpty ? 'Email required' : null;
-      _passwordError = _passwordController.text.isEmpty ? 'Password required' : null;
+      if (email.isEmpty) {
+        _emailError = 'Email wajib diisi';
+      } else if (!email.contains('@') || !email.contains('.')) {
+        _emailError = 'Format email tidak valid';
+      } else {
+        _emailError = null;
+      }
+      _passwordError = password.isEmpty ? 'Password wajib diisi' : null;
     });
 
     if (_emailError == null && _passwordError == null) {
       context.read<AuthBloc>().add(
-            AuthLoginRequested(
-              _emailController.text,
-              _passwordController.text,
-            ),
+            AuthLoginRequested(email, password),
           );
     }
   }
@@ -49,7 +55,17 @@ class _LoginScreenState extends State<LoginScreen> {
           context.go('/dashboard');
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.error_outline, color: Colors.white, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(state.message)),
+                ],
+              ),
+              backgroundColor: Colors.red.shade700,
+              behavior: SnackBarBehavior.floating,
+            ),
           );
         }
       },

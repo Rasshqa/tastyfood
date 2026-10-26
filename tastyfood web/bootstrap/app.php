@@ -17,7 +17,15 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => AdminMiddleware::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'admin/login',
+            'admin/logout',
+            'api/*',
+        ]);
         $middleware->redirectGuestsTo(function (Request $request) {
+            if ($request->expectsJson() || $request->wantsJson()) {
+                return null;
+            }
             return $request->is('admin/*') || $request->is('admin')
                 ? route('admin.login')
                 : route('login');

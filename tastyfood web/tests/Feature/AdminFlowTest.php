@@ -48,28 +48,28 @@ class AdminFlowTest extends TestCase
     {
         $this->actingAs($this->admin, 'admin');
 
-        $response = $this->post(route('berita.store'), [
+        $response = $this->post(route('admin.berita.store'), [
             'title' => 'Test News',
             'content' => 'Test content',
             'author' => 'Test Author',
             'status' => 'published',
         ]);
-        $response->assertRedirect(route('berita.index'));
+        $response->assertRedirect(route('admin.berita.index'));
         $this->assertDatabaseHas('news', ['title' => 'Test News']);
 
         $news = News::where('title', 'Test News')->first();
-        $response = $this->put(route('berita.update', $news), [
+        $response = $this->put(route('admin.berita.update', $news), [
             'title' => 'Updated News',
             'content' => 'Updated content',
             'author' => 'Test Author',
             'status' => 'draft',
         ]);
         $response->assertStatus(302);
-        $response->assertRedirect(route('berita.index'));
+        $response->assertRedirect(route('admin.berita.index'));
         $this->assertDatabaseHas('news', ['id' => $news->id, 'title' => 'Updated News']);
 
-        $response = $this->delete(route('berita.destroy', $news));
-        $response->assertRedirect(route('berita.index'));
+        $response = $this->delete(route('admin.berita.destroy', $news));
+        $response->assertRedirect(route('admin.berita.index'));
         $this->assertDatabaseMissing('news', ['id' => $news->id]);
     }
 
@@ -79,28 +79,28 @@ class AdminFlowTest extends TestCase
         $this->actingAs($this->admin, 'admin');
 
         $image = UploadedFile::fake()->create('gallery.jpg', 100);
-        $response = $this->post(route('galeri.store'), [
+        $response = $this->post(route('admin.galeri.store'), [
             'title' => 'Test Gallery',
             'image' => $image,
             'description' => 'Test description',
             'category' => 'food',
             'status' => 'active',
         ]);
-        $response->assertRedirect(route('galeri.index'));
+        $response->assertRedirect(route('admin.galeri.index'));
         $this->assertDatabaseHas('galleries', ['title' => 'Test Gallery']);
 
         $gallery = Gallery::where('title', 'Test Gallery')->first();
-        $response = $this->put(route('galeri.update', $gallery), [
+        $response = $this->put(route('admin.galeri.update', $gallery), [
             'title' => 'Updated Gallery',
             'description' => 'Updated description',
             'category' => 'food',
             'status' => 'inactive',
         ]);
-        $response->assertRedirect(route('galeri.index'));
+        $response->assertRedirect(route('admin.galeri.index'));
         $this->assertDatabaseHas('galleries', ['title' => 'Updated Gallery']);
 
-        $response = $this->delete(route('galeri.destroy', $gallery));
-        $response->assertRedirect(route('galeri.index'));
+        $response = $this->delete(route('admin.galeri.destroy', $gallery));
+        $response->assertRedirect(route('admin.galeri.index'));
         $this->assertDatabaseMissing('galleries', ['id' => $gallery->id]);
     }
 
@@ -116,8 +116,7 @@ class AdminFlowTest extends TestCase
         $this->assertDatabaseHas('messages', ['subject' => 'Test Subject']);
 
         $this->actingAs($this->admin, 'admin');
-        $message = Message::where('subject', 'Test Subject')->first();
-        $response = $this->get(route('pesan.index'));
+        $response = $this->get(route('admin.pesan.index'));
         $response->assertSee('Test Subject');
     }
 }

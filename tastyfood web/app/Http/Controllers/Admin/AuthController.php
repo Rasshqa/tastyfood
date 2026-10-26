@@ -22,7 +22,29 @@ class AuthController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
+
+            if ($request->expectsJson() || $request->wantsJson() || $request->is('api/*')) {
+                $admin = Auth::guard('admin')->user();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Login berhasil',
+                    'token' => $request->session()->getId(),
+                    'admin' => [
+                        'id' => $admin->id,
+                        'name' => $admin->name,
+                        'email' => $admin->email,
+                    ],
+                ]);
+            }
+
             return redirect()->intended(route('admin.dashboard'));
+        }
+
+        if ($request->expectsJson() || $request->wantsJson() || $request->is('api/*')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email atau password salah.',
+            ], 401);
         }
 
         return back()->withErrors(['email' => 'Invalid credentials.'])->withInput();
@@ -33,6 +55,14 @@ class AuthController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($request->expectsJson() || $request->wantsJson() || $request->is('api/*')) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil logout',
+            ]);
+        }
+
         return redirect()->route('admin.login');
     }
 }
