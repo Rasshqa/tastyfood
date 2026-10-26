@@ -94,6 +94,14 @@ Route::patch('/keranjang/{menu}/ajax', [CartController::class, 'updateAjax'])->n
 Route::delete('/keranjang/{menu}', [CartController::class, 'remove'])->name('cart.remove');
 Route::delete('/keranjang', [CartController::class, 'clear'])->name('cart.clear');
 
+Route::get('/api/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'service' => 'TastyFood API',
+        'timestamp' => now()->toIso8601String(),
+    ]);
+})->name('api.health');
+
 Route::middleware('guest:admin')->group(function () {
     Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
     Route::post('/admin/login', [AuthController::class, 'login']);

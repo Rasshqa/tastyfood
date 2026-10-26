@@ -64,6 +64,18 @@ class AdminApiAuthTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_api_health_endpoint(): void
+    {
+        $response = $this->getJson('/api/health');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => 'ok',
+                'service' => 'TastyFood API',
+            ])
+            ->assertJsonStructure(['status', 'service', 'timestamp']);
+    }
+
     public function test_admin_api_logout(): void
     {
         $admin = Admin::create([
