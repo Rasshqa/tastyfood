@@ -33,17 +33,46 @@ class OrderManagementController extends Controller
 
         $orders = $query->latest()->paginate(20);
 
-        if ($request->wantsJson()) {
+        if ($request->wantsJson() || $request->expectsJson()) {
             return response()->json([
                 'success' => true,
                 'orders' => $orders->map(fn ($order) => [
                     'id' => $order->id,
                     'order_number' => $order->order_number,
                     'customer_name' => $order->customer_name,
-                    'total' => $order->total,
+                    'customer_email' => $order->customer_email,
+                    'customer_phone' => $order->customer_phone ?? '',
+                    'delivery_method' => $order->delivery_method ?? 'pickup',
+                    'delivery_address' => $order->delivery_address,
                     'status' => $order->status,
-                    'payment_status' => $order->payment?->status,
-                    'created_at' => $order->created_at,
+                    'subtotal' => (int) ($order->subtotal ?? $order->total),
+                    'delivery_fee' => (int) ($order->delivery_fee ?? 0),
+                    'total' => (int) $order->total,
+                    'notes' => $order->notes,
+                    'created_at' => $order->created_at?->toISOString() ?? (string) $order->created_at,
+                    'payment' => $order->payment ? [
+                        'id' => $order->payment->id,
+                        'amount' => (int) $order->payment->amount,
+                        'status' => $order->payment->status,
+                        'proof_image' => $order->payment->proof_image,
+                        'rejection_reason' => $order->payment->rejection_reason,
+                        'verified_at' => $order->payment->verified_at?->toISOString(),
+                        'payment_method' => $order->payment->paymentMethod ? [
+                            'id' => $order->payment->paymentMethod->id,
+                            'name' => $order->payment->paymentMethod->name,
+                            'type' => $order->payment->paymentMethod->type,
+                            'account_name' => $order->payment->paymentMethod->account_name,
+                            'account_number' => $order->payment->paymentMethod->account_number,
+                        ] : null,
+                    ] : null,
+                    'items' => $order->items ? $order->items->map(fn ($item) => [
+                        'id' => $item->id,
+                        'menu_id' => $item->menu_id,
+                        'menu_name' => $item->menu_name,
+                        'menu_price' => (int) $item->menu_price,
+                        'quantity' => (int) $item->quantity,
+                        'subtotal' => (int) $item->subtotal,
+                    ])->values()->all() : [],
                 ]),
             ]);
         }
@@ -58,6 +87,14 @@ class OrderManagementController extends Controller
         ]);
 
         $order->update(['status' => $validated['status']]);
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Status pesanan berhasil diperbarui',
+                'order' => $order,
+            ]);
+        }
 
         return back()->with('success', 'Status pesanan berhasil diperbarui');
     }
@@ -99,9 +136,16 @@ class OrderManagementController extends Controller
         return response()->json(['success' => true, 'message' => 'Pembayaran berhasil ditolak']);
     }
 
-    public function show(Order $order)
+    public function show(Request $request, Order $order)
     {
         $order->load(['items.menu', 'payment.paymentMethod', 'user']);
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'order' => $order,
+            ]);
+        }
 
         return view('admin.order-management.show', compact('order'));
     }

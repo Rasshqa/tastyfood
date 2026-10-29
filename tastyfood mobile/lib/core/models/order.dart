@@ -34,22 +34,41 @@ class Order {
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-        id: json['id'],
-        orderNumber: json['order_number'],
-        customerName: json['customer_name'],
+        id: json['id'] ?? 0,
+        orderNumber: json['order_number'] ?? '',
+        customerName: json['customer_name'] ?? '',
         customerEmail: json['customer_email'],
-        customerPhone: json['customer_phone'],
-        deliveryMethod: json['delivery_method'],
+        customerPhone: json['customer_phone'] ?? '',
+        deliveryMethod: json['delivery_method'] ?? 'pickup',
         deliveryAddress: json['delivery_address'],
-        status: json['status'],
-        subtotal: json['subtotal'],
-        deliveryFee: json['delivery_fee'],
-        total: json['total'],
+        status: json['status'] ?? 'pending',
+        subtotal: json['subtotal'] ?? json['total'] ?? 0,
+        deliveryFee: json['delivery_fee'] ?? 0,
+        total: json['total'] ?? 0,
         notes: json['notes'],
-        createdAt: DateTime.parse(json['created_at']),
-        payment: json['payment'] != null ? Payment.fromJson(json['payment']) : null,
+        createdAt: json['created_at'] != null
+            ? DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now()
+            : DateTime.now(),
+        payment: json['payment'] != null
+            ? (json['payment'] is Map<String, dynamic>
+                ? Payment.fromJson(json['payment'])
+                : Payment(
+                    id: 0,
+                    amount: json['total'] ?? 0,
+                    status: json['payment_status']?.toString() ?? 'unpaid',
+                  ))
+            : (json['payment_status'] != null
+                ? Payment(
+                    id: 0,
+                    amount: json['total'] ?? 0,
+                    status: json['payment_status'].toString(),
+                  )
+                : null),
         items: json['items'] != null
-            ? (json['items'] as List).map((e) => OrderItem.fromJson(e)).toList()
+            ? (json['items'] as List)
+                .whereType<Map<String, dynamic>>()
+                .map((e) => OrderItem.fromJson(e))
+                .toList()
             : null,
       );
 }
@@ -72,12 +91,12 @@ class OrderItem {
   });
 
   factory OrderItem.fromJson(Map<String, dynamic> json) => OrderItem(
-        id: json['id'],
-        menuId: json['menu_id'],
-        menuName: json['menu_name'],
-        menuPrice: json['menu_price'],
-        quantity: json['quantity'],
-        subtotal: json['subtotal'],
+        id: json['id'] ?? 0,
+        menuId: json['menu_id'] ?? 0,
+        menuName: json['menu_name'] ?? '',
+        menuPrice: json['menu_price'] ?? 0,
+        quantity: json['quantity'] ?? 1,
+        subtotal: json['subtotal'] ?? 0,
       );
 }
 
@@ -101,12 +120,14 @@ class Payment {
   });
 
   factory Payment.fromJson(Map<String, dynamic> json) => Payment(
-        id: json['id'],
-        amount: json['amount'],
-        status: json['status'],
+        id: json['id'] ?? 0,
+        amount: json['amount'] ?? 0,
+        status: json['status'] ?? 'unpaid',
         proofImage: json['proof_image'],
         rejectionReason: json['rejection_reason'],
-        verifiedAt: json['verified_at'] != null ? DateTime.parse(json['verified_at']) : null,
+        verifiedAt: json['verified_at'] != null
+            ? DateTime.tryParse(json['verified_at'].toString())
+            : null,
         paymentMethod: json['payment_method'] != null
             ? PaymentMethod.fromJson(json['payment_method'])
             : null,
@@ -129,9 +150,9 @@ class PaymentMethod {
   });
 
   factory PaymentMethod.fromJson(Map<String, dynamic> json) => PaymentMethod(
-        id: json['id'],
-        name: json['name'],
-        type: json['type'],
+        id: json['id'] ?? 0,
+        name: json['name'] ?? '',
+        type: json['type'] ?? '',
         accountName: json['account_name'],
         accountNumber: json['account_number'],
       );

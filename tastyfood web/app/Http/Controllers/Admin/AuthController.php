@@ -25,10 +25,29 @@ class AuthController extends Controller
 
             if ($request->expectsJson() || $request->wantsJson() || $request->is('api/*')) {
                 $admin = Auth::guard('admin')->user();
+                $token = $request->session()->getId();
+                $request->session()->put('admin_id', $admin->id);
+                $request->session()->save();
+
+                \Illuminate\Support\Facades\DB::table('sessions')->updateOrInsert(
+                    ['id' => $token],
+                    [
+                        'user_id' => $admin->id,
+                        'ip_address' => $request->ip(),
+                        'user_agent' => substr((string) $request->userAgent(), 0, 500),
+                        'payload' => base64_encode(json_encode([
+                            'admin_id' => $admin->id,
+                            '_token' => $request->session()->token(),
+                            'login_admin_' . sha1(\App\Models\Admin::class) => $admin->id,
+                        ])),
+                        'last_activity' => time(),
+                    ]
+                );
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Login berhasil',
-                    'token' => $request->session()->getId(),
+                    'token' => $token,
                     'admin' => [
                         'id' => $admin->id,
                         'name' => $admin->name,

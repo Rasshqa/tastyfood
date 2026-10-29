@@ -1,5 +1,15 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 class ApiEndpoints {
-  static const String defaultUrl = 'http://10.0.2.2:8000'; // Android emulator localhost
+  static String get defaultUrl {
+    if (kIsWeb) return 'http://localhost:8000';
+    try {
+      if (Platform.isAndroid) return 'http://10.0.2.2:8000';
+    } catch (_) {}
+    return 'http://127.0.0.1:8000';
+  }
+
   static String get baseUrl {
     const fromEnv = String.fromEnvironment('API_BASE_URL');
     return fromEnv.isNotEmpty ? fromEnv : defaultUrl;

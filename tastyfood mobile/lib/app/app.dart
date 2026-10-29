@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,42 +31,165 @@ import '../features/settings/settings_repository.dart';
 import '../features/settings/settings_screen.dart';
 import 'theme/app_theme.dart';
 
-class App extends StatelessWidget {
+class GoRouterRefreshStream extends ChangeNotifier {
+  late final StreamSubscription<dynamic> _subscription;
+
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen((_) => notifyListeners());
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
+
+class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final dio = Dio(BaseOptions(baseUrl: ApiEndpoints.baseUrl));
-    final storage = const FlutterSecureStorage();
-    final apiClient = ApiClient(dio: dio, storage: storage);
+  State<App> createState() => _AppState();
+}
 
+class _AppState extends State<App> {
+  late final Dio _dio;
+  late final FlutterSecureStorage _storage;
+  late final ApiClient _apiClient;
+  late final AuthRepository _authRepository;
+  late final OrdersRepository _ordersRepository;
+  late final ChatRepository _chatRepository;
+  late final DashboardRepository _dashboardRepository;
+  late final MenusRepository _menusRepository;
+  late final SettingsRepository _settingsRepository;
+  late final MessagesRepository _messagesRepository;
+  late final AuthBloc _authBloc;
+  late final GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _dio = Dio(BaseOptions(baseUrl: ApiEndpoints.baseUrl));
+    _storage = const FlutterSecureStorage();
+    _apiClient = ApiClient(dio: _dio, storage: _storage);
+    _authRepository = AuthRepository(_apiClient);
+    _ordersRepository = OrdersRepository(_apiClient);
+    _chatRepository = ChatRepository(_apiClient);
+    _dashboardRepository = DashboardRepository(_apiClient);
+    _menusRepository = MenusRepository(_apiClient);
+    _settingsRepository = SettingsRepository(_apiClient);
+    _messagesRepository = MessagesRepository(_apiClient);
+
+    _authBloc = AuthBloc(_authRepository)..add(AuthCheckRequested());
+
+    _apiClient.onUnauthorized = () {
+      _authBloc.add(AuthLogoutRequested());
+    };
+
+    _router = GoRouter(
+      initialLocation: '/login',
+      refreshListenable: GoRouterRefreshStream(_authBloc.stream),
+      redirect: (context, state) {
+        final authState = _authBloc.state;
+        final isLoginRoute = state.matchedLocation == '/login';
+
+        if (authState is AuthAuthenticated && isLoginRoute) {
+          return '/dashboard';
+        }
+        if (authState is! AuthAuthenticated && !isLoginRoute) {
+          return '/login';
+        }
+        return null;
+      },
+      routes: [
+        GoRoute(
+          path: '/login',
+          builder: (context, state) => const LoginScreen(),
+        ),
+        GoRoute(
+          path: '/dashboard',
+          builder: (context, state) => const DashboardScreen(),
+        ),
+        GoRoute(
+          path: '/orders',
+          builder: (context, state) => const OrdersScreen(),
+        ),
+        GoRoute(
+          path: '/orders/:id',
+          builder: (context, state) {
+            final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+            return OrderDetailScreen(orderId: id);
+          },
+        ),
+        GoRoute(
+          path: '/payments',
+          builder: (context, state) => const PaymentQueueScreen(),
+        ),
+        GoRoute(
+          path: '/menus',
+          builder: (context, state) => const MenusScreen(),
+        ),
+        GoRoute(
+          path: '/messages',
+          builder: (context, state) => const MessagesScreen(),
+        ),
+        GoRoute(
+          path: '/chat',
+          builder: (context, state) => const ChatScreen(),
+        ),
+        GoRoute(
+          path: '/chat/:id',
+          builder: (context, state) {
+            final id = int.parse(state.pathParameters['id']!);
+            return ChatDetailScreen(conversationId: id);
+          },
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const SettingsScreen(),
+        ),
+        GoRoute(
+          path: '/more',
+          builder: (context, state) => const MoreScreen(),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _authBloc.close();
+    _router.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(create: (_) => AuthRepository(apiClient)),
-        RepositoryProvider(create: (_) => OrdersRepository(apiClient)),
-        RepositoryProvider(create: (_) => ChatRepository(apiClient)),
-        RepositoryProvider(create: (_) => DashboardRepository(apiClient)),
-        RepositoryProvider(create: (_) => MenusRepository(apiClient)),
-        RepositoryProvider(create: (_) => SettingsRepository(apiClient)),
-        RepositoryProvider(create: (_) => MessagesRepository(apiClient)),
+        RepositoryProvider.value(value: _authRepository),
+        RepositoryProvider.value(value: _ordersRepository),
+        RepositoryProvider.value(value: _chatRepository),
+        RepositoryProvider.value(value: _dashboardRepository),
+        RepositoryProvider.value(value: _menusRepository),
+        RepositoryProvider.value(value: _settingsRepository),
+        RepositoryProvider.value(value: _messagesRepository),
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider.value(value: _authBloc),
           BlocProvider(
-            create: (context) => AuthBloc(context.read<AuthRepository>())
-              ..add(AuthCheckRequested()),
+            create: (context) => OrdersBloc(_ordersRepository),
           ),
           BlocProvider(
-            create: (context) => OrdersBloc(context.read<OrdersRepository>()),
+            create: (context) => ChatBloc(_chatRepository),
           ),
           BlocProvider(
-            create: (context) => ChatBloc(context.read<ChatRepository>()),
+            create: (context) => DashboardBloc(_dashboardRepository),
           ),
           BlocProvider(
-            create: (context) => DashboardBloc(context.read<DashboardRepository>()),
-          ),
-          BlocProvider(
-            create: (context) => MenusBloc(context.read<MenusRepository>()),
+            create: (context) => MenusBloc(_menusRepository),
           ),
         ],
         child: MaterialApp.router(
@@ -78,71 +202,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-final _router = GoRouter(
-  initialLocation: '/login',
-  redirect: (context, state) {
-    final authState = context.read<AuthBloc>().state;
-    final isLoginRoute = state.matchedLocation == '/login';
-
-    if (authState is AuthAuthenticated && isLoginRoute) {
-      return '/dashboard';
-    }
-    if (authState is AuthUnauthenticated && !isLoginRoute) {
-      return '/login';
-    }
-    return null;
-  },
-  routes: [
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: '/dashboard',
-      builder: (context, state) => const DashboardScreen(),
-    ),
-    GoRoute(
-      path: '/orders',
-      builder: (context, state) => const OrdersScreen(),
-    ),
-    GoRoute(
-      path: '/orders/:id',
-      builder: (context, state) {
-        final id = int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
-        return OrderDetailScreen(orderId: id);
-      },
-    ),
-    GoRoute(
-      path: '/payments',
-      builder: (context, state) => const PaymentQueueScreen(),
-    ),
-    GoRoute(
-      path: '/menus',
-      builder: (context, state) => const MenusScreen(),
-    ),
-    GoRoute(
-      path: '/messages',
-      builder: (context, state) => const MessagesScreen(),
-    ),
-    GoRoute(
-      path: '/chat',
-      builder: (context, state) => const ChatScreen(),
-    ),
-    GoRoute(
-      path: '/chat/:id',
-      builder: (context, state) {
-        final id = int.parse(state.pathParameters['id']!);
-        return ChatDetailScreen(conversationId: id);
-      },
-    ),
-    GoRoute(
-      path: '/settings',
-      builder: (context, state) => const SettingsScreen(),
-    ),
-    GoRoute(
-      path: '/more',
-      builder: (context, state) => const MoreScreen(),
-    ),
-  ],
-);

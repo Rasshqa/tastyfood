@@ -102,12 +102,10 @@ Route::get('/api/health', function () {
     ]);
 })->name('api.health');
 
-Route::middleware('guest:admin')->group(function () {
-    Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
-    Route::post('/admin/login', [AuthController::class, 'login']);
-});
+Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login')->middleware('guest:admin');
+Route::post('/admin/login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:admin', 'admin'])->group(function () {
+Route::middleware(['admin'])->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 

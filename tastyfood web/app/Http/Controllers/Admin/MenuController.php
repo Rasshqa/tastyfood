@@ -17,11 +17,22 @@ class MenuController extends Controller
             $query->search($request->search);
         }
 
-        if ($request->filled('category') && $request->category !== 'semua') {
+        if ($request->filled('category') && $request->category !== 'semua' && $request->category !== 'all') {
             $query->where('category', $request->category);
         }
 
+        if ($request->has('available')) {
+            $query->where('available', (bool)$request->available);
+        }
+
         $menus = $query->orderBy('sort_order')->orderBy('name')->paginate(15);
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'menus' => $menus->items(),
+            ]);
+        }
 
         return view('admin.menus.index', compact('menus'));
     }
@@ -56,7 +67,15 @@ class MenuController extends Controller
 
         $validated['sort_order'] = Menu::max('sort_order') + 1;
 
-        Menu::create($validated);
+        $menu = Menu::create($validated);
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu berhasil ditambahkan',
+                'menu' => $menu,
+            ]);
+        }
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil ditambahkan');
     }
@@ -74,6 +93,17 @@ class MenuController extends Controller
 
     public function update(Request $request, Menu $menu)
     {
+        if ($request->wantsJson() || $request->expectsJson()) {
+            if ($request->has('available') && !$request->has('name')) {
+                $menu->update(['available' => (bool)$request->input('available')]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Status ketersediaan menu berhasil diperbarui',
+                    'menu' => $menu,
+                ]);
+            }
+        }
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'description' => 'nullable',
@@ -94,16 +124,31 @@ class MenuController extends Controller
 
         $menu->update($validated);
 
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu berhasil diperbarui',
+                'menu' => $menu,
+            ]);
+        }
+
         return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil diperbarui');
     }
 
-    public function destroy(Menu $menu)
+    public function destroy(Request $request, Menu $menu)
     {
         if ($menu->image && Storage::disk('public')->exists($menu->image)) {
             Storage::disk('public')->delete($menu->image);
         }
 
         $menu->delete();
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu berhasil dihapus',
+            ]);
+        }
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu berhasil dihapus');
     }

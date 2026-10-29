@@ -10,6 +10,14 @@ use App\Models\News;
 use App\Models\Gallery;
 use App\Models\Setting;
 use App\Models\Menu;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Payment;
+use App\Models\PaymentMethod;
+use App\Models\Conversation;
+use App\Models\Message;
+use App\Models\ContactMessage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -171,5 +179,164 @@ class DatabaseSeeder extends Seeder
         foreach ($menus as $menu) {
             Menu::create($menu);
         }
+
+        // Contact Messages
+        ContactMessage::create([
+            'subject' => 'Pertanyaan Katering Acara',
+            'name' => 'Budi Santoso',
+            'email' => 'budi@gmail.com',
+            'message' => 'Halo, apakah TastyFood melayani pesanan katering untuk acara pernikahan 200 porsi?',
+            'is_read' => false,
+        ]);
+        ContactMessage::create([
+            'subject' => 'Konfirmasi Pembayaran',
+            'name' => 'Siti Rahma',
+            'email' => 'siti@gmail.com',
+            'message' => 'Saya sudah transfer untuk pesanan nasi kotak, mohon dicek ya min.',
+            'is_read' => false,
+        ]);
+        ContactMessage::create([
+            'subject' => 'Pujian Masakan',
+            'name' => 'Ahmad Dani',
+            'email' => 'ahmad@gmail.com',
+            'message' => 'Rendang dan ayam popnya luar biasa enak! Pelayanan ramah sekali.',
+            'is_read' => true,
+        ]);
+
+        // Customer user 2
+        $customer2 = User::firstOrCreate(
+            ['email' => 'rashqaandrean@gmail.com'],
+            [
+                'name' => 'Rashqa Andrean',
+                'phone' => '085723894370',
+                'password' => Hash::make('password'),
+                'role' => 'customer',
+            ]
+        );
+
+        // Orders & Payments
+        $bca = PaymentMethod::where('name', 'BCA')->first();
+        $qris = PaymentMethod::where('name', 'QRIS')->first();
+
+        $order1 = Order::create([
+            'user_id' => $customer2->id,
+            'order_number' => 'PR-' . date('Ymd') . '-0001',
+            'customer_name' => $customer2->name,
+            'customer_email' => $customer2->email,
+            'customer_phone' => $customer2->phone,
+            'delivery_method' => 'delivery',
+            'delivery_address' => 'Gegerkalong, Sukasari, Kota Bandung',
+            'status' => 'pending',
+            'subtotal' => 68000,
+            'delivery_fee' => 10000,
+            'total' => 78000,
+            'notes' => 'Tolong sambal hijaunya dipisah',
+            'latitude' => -6.8648960,
+            'longitude' => 107.5904512,
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order1->id,
+            'menu_id' => 1,
+            'menu_name' => 'Rendang Daging',
+            'menu_price' => 25000,
+            'quantity' => 2,
+            'subtotal' => 50000,
+        ]);
+        OrderItem::create([
+            'order_id' => $order1->id,
+            'menu_id' => 10,
+            'menu_name' => 'Nasi Putih',
+            'menu_price' => 5000,
+            'quantity' => 2,
+            'subtotal' => 10000,
+        ]);
+        OrderItem::create([
+            'order_id' => $order1->id,
+            'menu_id' => 12,
+            'menu_name' => 'Es Jeruk',
+            'menu_price' => 8000,
+            'quantity' => 1,
+            'subtotal' => 8000,
+        ]);
+
+        Payment::create([
+            'order_id' => $order1->id,
+            'payment_method_id' => $bca?->id ?? 1,
+            'user_id' => $customer2->id,
+            'amount' => 78000,
+            'status' => 'waiting_verification',
+            'proof_image' => 'assets/ASET/nasipadang-1.jpg',
+            'user_notes' => 'Sudah transfer dari rekening BCA a.n Rashqa',
+        ]);
+
+        $order2 = Order::create([
+            'user_id' => $customer2->id,
+            'order_number' => 'PR-' . date('Ymd') . '-0002',
+            'customer_name' => $customer2->name,
+            'customer_email' => $customer2->email,
+            'customer_phone' => $customer2->phone,
+            'delivery_method' => 'pickup',
+            'status' => 'confirmed',
+            'subtotal' => 45000,
+            'delivery_fee' => 0,
+            'total' => 45000,
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order2->id,
+            'menu_id' => 5,
+            'menu_name' => 'Ayam Pop',
+            'menu_price' => 19000,
+            'quantity' => 2,
+            'subtotal' => 38000,
+        ]);
+        OrderItem::create([
+            'order_id' => $order2->id,
+            'menu_id' => 11,
+            'menu_name' => 'Es Teh Manis',
+            'menu_price' => 7000,
+            'quantity' => 1,
+            'subtotal' => 7000,
+        ]);
+
+        Payment::create([
+            'order_id' => $order2->id,
+            'payment_method_id' => $qris?->id ?? 3,
+            'user_id' => $customer2->id,
+            'amount' => 45000,
+            'status' => 'paid',
+            'verified_by' => 1,
+            'verified_at' => now(),
+        ]);
+
+        // Conversation & Messages
+        $convo = Conversation::create([
+            'user_id' => $customer2->id,
+            'order_id' => $order1->id,
+            'status' => 'open',
+            'last_message_at' => now(),
+        ]);
+
+        Message::create([
+            'uuid' => (string) Str::uuid(),
+            'conversation_id' => $convo->id,
+            'sender_id' => 0,
+            'sender_type' => 'system',
+            'message' => 'Pesanan #' . $order1->order_number . ' telah dibuat.',
+            'message_type' => 'system',
+            'is_read' => true,
+            'read_at' => now(),
+        ]);
+
+        Message::create([
+            'uuid' => (string) Str::uuid(),
+            'conversation_id' => $convo->id,
+            'sender_id' => $customer2->id,
+            'sender_type' => 'user',
+            'message' => 'Halo admin, apakah pesanan saya sudah mulai diproses?',
+            'message_type' => 'text',
+            'is_read' => false,
+        ]);
     }
 }

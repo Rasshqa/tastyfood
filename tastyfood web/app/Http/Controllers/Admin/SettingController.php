@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $settings = Setting::all()->pluck('setting_value', 'setting_key');
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'settings' => $settings,
+            ]);
+        }
 
         return view('admin.settings.index', compact('settings'));
     }
@@ -33,6 +40,14 @@ class SettingController extends Controller
                 $value = $request->has('chat_enabled') ? '1' : '0';
             }
             Setting::set($key, $value);
+        }
+
+        if ($request->wantsJson() || $request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Pengaturan berhasil diperbarui!',
+                'settings' => Setting::all()->pluck('setting_value', 'setting_key'),
+            ]);
         }
 
         return back()->with('success', 'Pengaturan berhasil diperbarui!');
